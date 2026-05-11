@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { GithubIcon } from "@/components/ui/github-icon";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -42,7 +43,7 @@ export function CTA() {
               href="https://github.com/quantum-agent-MGM/oss-guardian-ai"
               target="_blank"
             >
-              <Github className="h-5 w-5" />
+              <GithubIcon className="h-5 w-5" />
               Star on GitHub
             </Link>
           </Button>

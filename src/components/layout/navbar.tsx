@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Github, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GithubIcon } from "@/components/ui/github-icon";
 
 export function Navbar() {
   return (
@@ -23,7 +24,7 @@ export function Navbar() {
               href="https://github.com/quantum-agent-MGM/oss-guardian-ai"
               target="_blank"
             >
-              <Github className="h-4 w-4" />
+              <GithubIcon className="h-4 w-4" />
             </Link>
           </Button>
           <Button

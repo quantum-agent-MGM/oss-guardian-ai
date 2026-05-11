@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowRight, Github, Shield, Sparkles } from "lucide-react";
+import { ArrowRight, Shield, Sparkles } from "lucide-react";
+import { GithubIcon } from "@/components/ui/github-icon";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -74,7 +75,7 @@ export function Hero() {
               href="https://github.com/quantum-agent-MGM/oss-guardian-ai"
               target="_blank"
             >
-              <Github className="h-5 w-5" />
+              <GithubIcon className="h-5 w-5" />
               View on GitHub
             </Link>
           </Button>

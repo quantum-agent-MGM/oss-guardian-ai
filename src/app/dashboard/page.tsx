@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Github, ArrowRight, Shield, Activity, FileText, Zap } from "lucide-react";
+import { ArrowRight, Shield, Activity, FileText, Zap } from "lucide-react";
+import { GithubIcon } from "@/components/ui/github-icon";
 import { Button } from "@/components/ui/button";
 
 export default function DashboardPage() {
@@ -19,7 +20,7 @@ export default function DashboardPage() {
             className="bg-emerald-500 text-black hover:bg-emerald-400 gap-2"
           >
             <Link href="/dashboard/connect">
-              <Github className="h-4 w-4" />
+              <GithubIcon className="h-4 w-4" />
               Connect Repository
             </Link>
           </Button>
@@ -74,7 +75,7 @@ export default function DashboardPage() {
 
         {/* Empty state */}
         <div className="mt-12 rounded-2xl border border-dashed border-zinc-700 bg-zinc-900/30 p-12 text-center">
-          <Github className="mx-auto h-12 w-12 text-zinc-600" />
+          <GithubIcon className="mx-auto h-12 w-12 text-zinc-600" />
           <h3 className="mt-4 text-lg font-semibold">
             No repositories connected yet
           </h3>
