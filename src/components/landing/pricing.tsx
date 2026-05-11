@@ -12,7 +12,7 @@ const plans = [
     period: "/month",
     description: "For indie maintainers and small OSS projects.",
     cta: "Start Free Trial",
-    href: "/dashboard",
+    href: "https://whop.com/checkout/ch_BfnWOEryPKylvZx/",
     featured: false,
     features: [
       "Up to 3 repositories",
@@ -28,7 +28,7 @@ const plans = [
     period: "/month",
     description: "For growing OSS teams with active development.",
     cta: "Start Free Trial",
-    href: "/dashboard",
+    href: "https://whop.com/checkout/ch_0OXFoUYPKA3So8x/",
     featured: true,
     features: [
       "Unlimited repositories",

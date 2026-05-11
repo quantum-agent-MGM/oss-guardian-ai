@@ -60,10 +60,10 @@ export function Hero() {
             size="lg"
             className="bg-emerald-500 text-black hover:bg-emerald-400 gap-2 px-8 py-6 text-lg"
           >
-            <Link href="/dashboard">
+            <a href="https://whop.com/checkout/ch_BfnWOEryPKylvZx/" target="_blank">
               Start Free 7-Day Trial
               <ArrowRight className="h-5 w-5" />
-            </Link>
+            </a>
           </Button>
           <Button
             asChild
