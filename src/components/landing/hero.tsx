@@ -1,84 +1,77 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Sphere, MeshDistortMaterial } from "@react-three/drei";
+import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Shield } from "lucide-react";
 import { GithubIcon } from "@/components/ui/github-icon";
-import * as THREE from "three";
 
-/* ── 3D Scene ── */
-function Scene() {
-  const groupRef = useRef<THREE.Group>(null!);
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.08;
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
-    }
-  });
-
+/* ── CSS Fallback (cuando WebGL no está disponible) ── */
+function CSSNebulaHero() {
   return (
-    <group ref={groupRef}>
-      {/* Central sphere */}
-      <Float speed={2} rotationIntensity={0.4} floatIntensity={1.5}>
-        <Sphere args={[1.2, 64, 64]} position={[0, 0, 0]}>
-          <MeshDistortMaterial
-            color="#10b981"
-            emissive="#059669"
-            emissiveIntensity={0.3}
-            roughness={0.2}
-            metalness={0.1}
-            distort={0.25}
-            speed={2}
-            transparent
-            opacity={0.7}
-          />
-        </Sphere>
-      </Float>
-
-      {/* Orbiting rings */}
-      <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.8}>
-        <mesh position={[2.2, 0.5, -1]}>
-          <torusGeometry args={[0.25, 0.06, 16, 32]} />
-          <meshStandardMaterial color="#6ee7b7" emissive="#34d399" emissiveIntensity={0.5} roughness={0.3} />
-        </mesh>
-      </Float>
-
-      <Float speed={2.2} rotationIntensity={0.3} floatIntensity={1}>
-        <mesh position={[-1.8, -0.8, 1.2]}>
-          <torusGeometry args={[0.35, 0.05, 16, 48]} />
-          <meshStandardMaterial color="#34d399" emissive="#10b981" emissiveIntensity={0.4} roughness={0.25} />
-        </mesh>
-      </Float>
-
-      {/* Small particles */}
-      {Array.from({ length: 12 }).map((_, i) => (
-        <Float key={i} speed={1 + Math.random() * 2} floatIntensity={0.5 + Math.random()}>
-          <mesh
-            position={[
-              (Math.random() - 0.5) * 5,
-              (Math.random() - 0.5) * 5,
-              (Math.random() - 0.5) * 3,
-            ]}
-          >
-            <sphereGeometry args={[0.04 + Math.random() * 0.06, 8, 8]} />
-            <meshStandardMaterial
-              color={Math.random() > 0.5 ? "#6ee7b7" : "#34d399"}
-              emissive={Math.random() > 0.5 ? "#10b981" : "#059669"}
-              emissiveIntensity={0.6}
-            />
-          </mesh>
-        </Float>
+    <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-500/20 via-emerald-500/5 to-transparent animate-pulse-glow" />
+        <div className="absolute inset-8 rounded-full border border-emerald-500/10 animate-float" />
+        <div className="absolute inset-16 rounded-full border border-emerald-500/5 animate-float" style={{ animationDelay: "-2s" }} />
+      </div>
+      {Array.from({ length: 20 }).map((_, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full bg-emerald-400/20"
+          style={{
+            width: 2 + Math.random() * 4,
+            height: 2 + Math.random() * 4,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animation: `float ${4 + Math.random() * 4}s ease-in-out infinite`,
+            animationDelay: `${Math.random() * 3}s`,
+          }}
+        />
       ))}
-
-      {/* Ambient light */}
-      <ambientLight intensity={0.4} />
-      <pointLight position={[5, 5, 5]} intensity={1} color="#10b981" />
-      <pointLight position={[-3, -2, -3]} intensity={0.5} color="#34d399" />
-    </group>
+    </div>
   );
+}
+
+/* ── 3D Scene (carga lazy) ── */
+function ThreeScene() {
+  const [mounted, setMounted] = useState(false);
+  const [hasWebGL, setHasWebGL] = useState(true);
+
+  useEffect(() => {
+    // Detectar WebGL
+    try {
+      const canvas = document.createElement("canvas");
+      const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+      setHasWebGL(!!gl);
+    } catch {
+      setHasWebGL(false);
+    }
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !hasWebGL) {
+    return <CSSNebulaHero />;
+  }
+
+  // Dynamic import of Three.js to avoid SSR issues
+  const LazyThreeScene = () => {
+    const [ThreeComp, setThreeComp] = useState<React.ComponentType | null>(null);
+    const [loadError, setLoadError] = useState(false);
+
+    useEffect(() => {
+      import("./hero-three-scene")
+        .then((mod) => setThreeComp(() => mod.HeroThreeScene))
+        .catch(() => setLoadError(true));
+    }, []);
+
+    if (loadError || !ThreeComp) {
+      return <CSSNebulaHero />;
+    }
+
+    return <ThreeComp />;
+  };
+
+  return <LazyThreeScene />;
 }
 
 /* ── Hero Section ── */
@@ -94,16 +87,8 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 via-transparent to-transparent" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-emerald-500/[0.03] blur-[150px] rounded-full" />
 
-      {/* 3D Canvas */}
-      <div className="absolute inset-0 z-0">
-        <Canvas
-          camera={{ position: [0, 0, 6], fov: 45 }}
-          gl={{ antialias: true, alpha: true }}
-          dpr={[1, 1.5]}
-        >
-          <Scene />
-        </Canvas>
-      </div>
+      {/* 3D Scene (with fallback) */}
+      <ThreeScene />
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-4xl px-6 pt-32 pb-20 text-center">
