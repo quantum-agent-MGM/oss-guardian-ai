@@ -2,10 +2,8 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { GithubIcon } from "@/components/ui/github-icon";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-
+import { GithubIcon } from "@/components/ui/github-icon";
 export function CTA() {
   return (
     <section className="px-6 py-24 sm:px-8 lg:px-12">
@@ -13,43 +11,37 @@ export function CTA() {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mx-auto max-w-3xl rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 to-zinc-900 p-12 text-center"
+        className="mx-auto max-w-3xl rounded-3xl border border-emerald-500/15 bg-gradient-to-br from-emerald-500/[0.06] via-transparent to-zinc-900/50 backdrop-blur-sm p-12 text-center"
       >
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Ready to secure your OSS project?
+          ¿Listo para dejar de revisar PRs manualmente?
         </h2>
-        <p className="mt-4 text-lg text-zinc-400">
-          Start your 7-day free trial. No credit card required. Connect your
-          first repo in under 2 minutes.
+        <p className="mt-4 text-zinc-400 max-w-lg mx-auto">
+          Conecta tu primer repo en 30 segundos. 7 días gratis. Sin tarjeta. Sin trampas.
         </p>
-        <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <Button
-            asChild
-            size="lg"
-            className="bg-emerald-500 text-black hover:bg-emerald-400 gap-2 px-8 py-6 text-lg"
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="https://whop.com/checkout/ch_BfnWOEryPKylvZx/"
+            target="_blank"
+            rel="noopener"
+            className="glass-btn glass-btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl animate-pulse-glow"
           >
-            <Link href="https://whop.com/checkout/ch_BfnWOEryPKylvZx/" target="_blank">
-              Get Started Free
-              <ArrowRight className="h-5 w-5" />
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 gap-2 px-8 py-6 text-lg"
+            <GithubIcon className="h-5 w-5" />
+            Conectar mi repo gratis
+            <ArrowRight className="h-5 w-5" />
+          </a>
+          <a
+            href="https://github.com/quantum-agent-MGM/oss-guardian-ai"
+            target="_blank"
+            rel="noopener"
+            className="glass-btn inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl"
           >
-            <Link
-              href="https://github.com/quantum-agent-MGM/oss-guardian-ai"
-              target="_blank"
-            >
-              <GithubIcon className="h-5 w-5" />
-              Star on GitHub
-            </Link>
-          </Button>
+            <GithubIcon className="h-5 w-5" />
+            Star on GitHub
+          </a>
         </div>
-        <p className="mt-6 text-sm text-zinc-500">
-          Free for OSS projects with &lt;50 stars. No catch.
+        <p className="mt-5 text-xs text-zinc-600">
+          Free para proyectos con &lt;50 estrellas. Sin letra pequeña.
         </p>
       </motion.div>
     </section>

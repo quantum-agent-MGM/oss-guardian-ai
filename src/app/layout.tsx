@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { ScrollManager } from "@/components/layout/scroll-manager";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | OSS Guardian AI",
   },
   description:
-    "Auto-review PRs, detect security bugs, generate changelogs, and get an OSS Health Score. $29/mo.",
+    "Auto-review PRs, detect security bugs, generate changelogs. $29/mo. 7-day free trial.",
 };
 
 export default function RootLayout({
@@ -32,8 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-950 text-zinc-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0a0a0a] text-zinc-100`}
       >
+        <ScrollManager />
         <Navbar />
         {children}
         <Footer />
