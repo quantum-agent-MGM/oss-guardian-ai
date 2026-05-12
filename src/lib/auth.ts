@@ -18,6 +18,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account) {
         token.accessToken = account.access_token;
         token.githubLogin = (profile as { login?: string })?.login;
+        token.githubName = (profile as { name?: string })?.name 
+          || (profile as { login?: string })?.login 
+          || "User";
       }
       return token;
     },
@@ -27,6 +30,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         accessToken: token.accessToken as string,
         user: {
           ...session.user,
+          name: token.githubName as string || token.githubLogin as string || session.user?.name || "User",
           githubLogin: token.githubLogin as string,
         },
       };
