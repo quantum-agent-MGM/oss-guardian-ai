@@ -125,8 +125,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mt-6 text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed"
         >
-          Detección automática de bugs de seguridad, comentarios humanos reales, changelog perfecto y OSS Health Score.{" "}
-          <span className="text-zinc-300">Ahorra 10+ horas/semana en code review.</span>
+          Ahorra 10+ horas/semana. Detecta bugs de seguridad reales, genera comentarios humanos que maintainers responden, auto-changelog y OSS Health Score.{" "}
+          <span className="text-zinc-300">Bajo ruido por diseño.</span>
         </motion.p>
 
         <motion.div

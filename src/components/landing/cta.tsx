@@ -14,20 +14,18 @@ export function CTA() {
         className="mx-auto max-w-3xl rounded-3xl border border-emerald-500/15 bg-gradient-to-br from-emerald-500/[0.06] via-transparent to-zinc-900/50 backdrop-blur-sm p-12 text-center"
       >
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          ¿Listo para dejar de revisar PRs manualmente?
+          ¿Listo para tener un senior dev revisando cada PR?
         </h2>
         <p className="mt-4 text-zinc-400 max-w-lg mx-auto">
-          Conecta tu primer repo en 30 segundos. 7 días gratis. Sin tarjeta. Sin trampas.
+          Conecta tu repo en 30 segundos. 7 días gratis. Sin tarjeta. Si no ahorras 5+ horas en tu primera semana, te devolvemos el mes.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="https://whop.com/checkout/ch_BfnWOEryPKylvZx/"
-            target="_blank"
-            rel="noopener"
+            href="/auth/signin"
             className="glass-btn glass-btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl animate-pulse-glow"
           >
             <GithubIcon className="h-5 w-5" />
-            Conectar mi repo gratis
+            Probar gratis — 7 días
             <ArrowRight className="h-5 w-5" />
           </a>
           <a

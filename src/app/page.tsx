@@ -12,10 +12,10 @@ import { CTA } from "@/components/landing/cta";
 export const metadata: Metadata = {
   title: "OSS Guardian AI — El AI que revisa tus PRs como un senior maintainer 24/7",
   description:
-    "Detección automática de bugs de seguridad, comentarios humanos reales, changelog perfecto y OSS Health Score. Ahorra 10+ horas/semana en code review. 7 días gratis.",
+    "Ahorra 10+ horas/semana. El AI que revisa tus PRs como un senior maintainer 24/7. Detecta bugs de seguridad reales, comentarios humanos, auto-changelog y OSS Health Score. Bajo ruido por diseño. 7 días gratis.",
   openGraph: {
-    title: "OSS Guardian AI — AI-Powered OSS Code Review",
-    description: "Auto-review PRs like a senior dev, detect security bugs, generate changelogs. 7-day free trial. $19/mo.",
+    title: "OSS Guardian AI — AI Code Review, Sin Ego, 24/7",
+    description: "Save 10+ hrs/week on PR review. Real security detection, human-style comments, auto-changelog, OSS Health Score. 7-day free trial.",
     url: "https://guardian.vortexaisolutions.online",
     type: "website",
   },

@@ -57,7 +57,7 @@ export function Pricing() {
           </h2>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.02] px-4 py-1.5 text-sm text-zinc-400">
             <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
-            Cancela cuando quieras · 7 días gratis · Sin tarjeta upfront
+            Cancela cuando quieras · 7 días gratis · Primer mes free si no ahorras 5+ horas
           </div>
         </motion.div>
 
