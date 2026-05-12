@@ -34,8 +34,9 @@ const plans = [
       "OSS Health Score dashboard",
       "Auto-fix suggestions",
       "Reglas de review custom",
-      "Prioridad en procesamiento + Auto-Fix avanzado",
-      "Soporte prioritario",
+              "Prioridad en procesamiento + Auto-Fix avanzado",
+              "Spec Compliance Guard",
+              "Soporte prioritario",
     ],
   },
 ];
@@ -108,6 +109,23 @@ export function Pricing() {
               </a>
             </motion.div>
           ))}
+        </div>
+
+        {/* Trust badges */}
+        <div className="mt-10 flex flex-col items-center gap-3">
+          <div className="flex items-center gap-4 text-sm text-zinc-500">
+            <span className="flex items-center gap-1.5 text-emerald-400">
+              <Sparkles className="h-4 w-4" />
+              7 días gratis
+            </span>
+            <span className="w-1 h-1 rounded-full bg-zinc-700" />
+            <span>Sin tarjeta de crédito</span>
+            <span className="w-1 h-1 rounded-full bg-zinc-700" />
+            <span>Cancela cuando quieras</span>
+          </div>
+          <p className="text-sm text-zinc-500">
+            <span className="text-emerald-400 font-medium">Garantía:</span> Si en tu primer mes no ahorras al menos 5 horas, te devolvemos el dinero.
+          </p>
         </div>
       </div>
     </section>

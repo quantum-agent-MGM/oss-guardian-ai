@@ -125,8 +125,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mt-6 text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed"
         >
-          Ahorra 10+ horas/semana. Detecta bugs de seguridad reales, genera comentarios humanos que maintainers responden, auto-changelog y OSS Health Score.{" "}
-          <span className="text-zinc-300">Bajo ruido por diseño.</span>
+          Ahorra 10+ horas/semana en code review. Detecta bugs de seguridad reales, genera comentarios que maintainers responden, verifica que el código cumpla la spec del proyecto y te da un OSS Health Score semanal.
         </motion.p>
 
         <motion.div
@@ -146,9 +145,9 @@ export function Hero() {
             </a>
             <button
               onClick={() => scrollTo("demo")}
-              className="glass-btn inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl"
+              className="glass-btn inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl border-emerald-500/20 hover:border-emerald-500/40"
             >
-              Ver demo interactivo
+              🧪 Probar Demo (sin login)
             </button>
           </div>
           <div className="flex items-center gap-4 text-sm text-zinc-500">

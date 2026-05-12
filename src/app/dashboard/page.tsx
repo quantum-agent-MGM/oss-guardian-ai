@@ -78,46 +78,47 @@ export default async function DashboardPage() {
             {/* Score Card */}
             <div className="glass-card p-6 flex flex-col items-center justify-center text-center">
               <p className="text-xs text-zinc-500 mb-4 uppercase tracking-wider">Latest Score</p>
-              <div className="relative w-32 h-32 mb-4">
-                <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
-                  <circle
-                    cx="60" cy="60" r="52"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="8"
-                    className="text-zinc-800"
-                  />
-                  <circle
-                    cx="60" cy="60" r="52"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="8"
-                    strokeDasharray={`${2 * Math.PI * 52}`}
-                    strokeDashoffset={`${2 * Math.PI * 52 * (1 - 0)}`}
-                    strokeLinecap="round"
-                    className="text-zinc-700"
-                  />
+              <div className="relative w-36 h-36 mb-4">
+                <svg className="w-36 h-36 transform -rotate-90" viewBox="0 0 140 140">
+                  <circle cx="70" cy="70" r="60" fill="none" stroke="currentColor" strokeWidth="8" className="text-zinc-800" />
+                  {/* Background track */}
+                  <circle cx="70" cy="70" r="60" fill="none" stroke="currentColor" strokeWidth="8"
+                    strokeDasharray={`${2 * Math.PI * 60}`} strokeDashoffset="0" strokeLinecap="round"
+                    className="text-zinc-700/50" />
                 </svg>
-                <span className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-3xl font-bold text-zinc-500">—</span>
+                <span className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-4xl font-bold text-zinc-500">—</span>
+                  <span className="text-xs text-zinc-600 mt-1">no data</span>
                 </span>
               </div>
-              <p className="text-sm text-zinc-400">Connect a repo with Spec Kit to see your compliance score.</p>
+              <div className="flex gap-2 text-xs">
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500" /> 80-100</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-500" /> 60-79</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500" /> 0-59</span>
+              </div>
+              <p className="text-sm text-zinc-400 mt-3">Connect a repo with Spec Kit to see your compliance score.</p>
             </div>
 
-            {/* Drift Flags */}
-            <div className="glass-card p-6">
+            {/* Drift Flags + Generate Spec Update */}
+            <div className="glass-card p-6 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
                 <AlertTriangle className="h-4 w-4 text-amber-400" />
                 <h3 className="font-semibold text-sm">Drift Flags</h3>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-3 flex-1">
                 <div className="rounded-lg bg-white/[0.02] border border-white/[0.04] p-3">
                   <p className="text-xs text-zinc-500">
                     No drift flags yet. Connect a repository using Spec Kit to detect spec deviations automatically.
                   </p>
                 </div>
               </div>
+              <Button
+                disabled
+                className="mt-4 w-full glass-btn border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/10 rounded-xl text-sm font-medium gap-2"
+              >
+                <ClipboardCheck className="h-4 w-4" />
+                Generate Spec Update
+              </Button>
             </div>
 
             {/* Task Checklist */}

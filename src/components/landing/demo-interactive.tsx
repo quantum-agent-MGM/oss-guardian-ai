@@ -29,11 +29,11 @@ export function DemoInteractive() {
         >
           <span className="text-xs font-medium uppercase tracking-widest text-emerald-500">Live Demo</span>
           <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Pega un repo y{" "}
-            <span className="glow-text">mira la magia</span>
+            Pruébalo ya —{" "}
+            <span className="glow-text">sin registrarte</span>
           </h2>
           <p className="mt-3 text-zinc-500">
-            Simula una review de PR en vivo. Sin registrarte, sin instalar nada.
+            Simula una review completa con Spec Compliance, security scan y sugerencias. Sin login, sin instalar nada.
           </p>
         </motion.div>
 
@@ -86,7 +86,16 @@ export function DemoInteractive() {
                 <div>
                   <p className="font-semibold text-emerald-400">OSS Guardian AI · Review</p>
                   <p className="text-sm text-zinc-300 mt-1">
-                    ✅ Estructura limpia. Buen uso de TypeScript. Sin vulnerabilidades críticas detectadas.
+                    ✅ Estructura limpia. Buen uso de TypeScript. Sin vulnerabilidades críticas.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-4">
+                  <p className="text-sm font-semibold text-indigo-400 flex items-center gap-1.5">
+                    🧾 Spec Compliance: 92%
+                  </p>
+                  <p className="text-sm text-zinc-400 mt-1">
+                    PR alineado con <code className="text-zinc-300 text-xs bg-zinc-800 px-1 rounded">spec.md §3.1</code>. 
+                    Todos los endpoints documentados. Checklist de tareas completada.
                   </p>
                 </div>
                 <div className="rounded-xl border border-amber-500/10 bg-amber-500/5 p-4">
