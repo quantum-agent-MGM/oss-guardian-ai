@@ -56,7 +56,7 @@ export function DemoInteractive() {
             </div>
           </motion.div>
         )}
-        {!result && !loading && (<p className="text-center text-xs text-zinc-600 mt-4">{t.demoHint}</p>)}
+        {!result && !loading && (<p className="text-center text-sm text-emerald-400/80 mt-5 font-medium tracking-wide">{t.demoHint}</p>)}
       </div>
     </section>
   );

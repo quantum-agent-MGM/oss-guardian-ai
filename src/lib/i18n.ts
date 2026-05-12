@@ -74,7 +74,7 @@ const translations = {
     demoSuggest2: "to prevent brute-force on login.",
     demoFooter: "OSS Guardian AI reviewed 3 seconds ago",
     demoFooter2: "+12 improvements suggested",
-    demoHint: "↑ Paste any public repo to simulate a review",
+    demoHint: "Watch how Spec Compliance Guard catches drift in real time (example with 92% score) ↑",
 
     // Why Choose
     whyLabel: "Why OSS Guardian",
