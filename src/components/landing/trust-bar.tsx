@@ -19,9 +19,9 @@ export function TrustBar() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-xs font-medium uppercase tracking-wider text-zinc-600"
-          >
+          <span className="text-xs font-medium uppercase tracking-wider text-zinc-600">
             Integraciones nativas
-          </motion.span>
+          </span>
           {trusts.map((t, i) => (
             <motion.div
               key={t.name}
@@ -38,6 +38,9 @@ export function TrustBar() {
             </motion.div>
           ))}
         </div>
+        <p className="text-center text-xs text-zinc-600 mt-3">
+          Used by OSS maintainers of repos with +8k stars
+        </p>
       </div>
     </section>
   );

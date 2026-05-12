@@ -124,7 +124,7 @@ export function Pricing() {
             <span>Cancela cuando quieras</span>
           </div>
           <p className="text-sm text-zinc-500">
-            <span className="text-emerald-400 font-medium">Garantía:</span> Si en tu primer mes no ahorras al menos 5 horas, te devolvemos el dinero.
+            <span className="text-emerald-400 font-medium">Garantía:</span> Si en tu primer mes no ahorras al menos 5 horas de code review, te devolvemos el 100%.
           </p>
         </div>
       </div>

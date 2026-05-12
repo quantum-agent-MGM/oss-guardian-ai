@@ -11,9 +11,9 @@ export function Footer() {
               <span className="text-emerald-400">OSS</span>{" "}
               <span className="text-zinc-200">Guardian AI</span>
             </Link>
-            <p className="mt-2 text-xs text-zinc-500 leading-relaxed">
-              AI-powered maintenance for open source projects. Built with ❤️ for the OSS community.
-            </p>
+              <p className="mt-2 text-xs text-zinc-500 leading-relaxed">
+                AI-powered maintenance for open source projects. Built for the OSS community.
+              </p>
           </div>
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-3">Producto</h4>
@@ -45,7 +45,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 pt-6 border-t border-white/[0.04] text-center text-xs text-zinc-600">
-          © {new Date().getFullYear()} OSS Guardian AI. Todos los derechos reservados.
+          © {new Date().getFullYear()} Vortex AI Solutions. Todos los derechos reservados.
         </div>
       </div>
     </footer>

@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Shield } from "lucide-react";
+import { ArrowRight, Shield, Sparkles } from "lucide-react";
 import { GithubIcon } from "@/components/ui/github-icon";
 
 /* ── CSS Fallback (cuando WebGL no está disponible) ── */
@@ -125,7 +125,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mt-6 text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed"
         >
-          Ahorra 10+ horas/semana en code review. Detecta bugs de seguridad reales, genera comentarios que maintainers responden, verifica que el código cumpla la spec del proyecto y te da un OSS Health Score semanal.
+          Detecta bugs de seguridad reales, genera comentarios humanos que maintainers responden, verifica que el código cumpla tu spec (GitHub Spec Kit) y te da un OSS Health Score semanal.{" "}
+          <span className="text-zinc-300">Ahorra 10+ horas por semana.</span>
         </motion.p>
 
         <motion.div
@@ -145,9 +146,10 @@ export function Hero() {
             </a>
             <button
               onClick={() => scrollTo("demo")}
-              className="glass-btn inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl border-emerald-500/20 hover:border-emerald-500/40"
+              className="glass-btn glass-btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl"
             >
-              🧪 Probar Demo (sin login)
+              <Sparkles className="h-5 w-5" />
+              Probar Demo (sin login)
             </button>
           </div>
           <div className="flex items-center gap-4 text-sm text-zinc-500">
