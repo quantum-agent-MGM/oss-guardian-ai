@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, MessageSquare, FileText, BarChart3, Filter, Code2 } from "lucide-react";
+import { ShieldCheck, MessageSquare, FileText, BarChart3, Filter, Code2, ClipboardCheck } from "lucide-react";
 
 const features = [
   {
@@ -10,6 +10,13 @@ const features = [
     desc: "Detecta prompt injection, secretos expuestos, vulnerabilidades AI y CVEs en <8 segundos. Bloquea merges con riesgo crítico automáticamente.",
     size: "md",
     color: "emerald",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Spec Compliance Guard",
+    desc: "Detecta automáticamente si el PR cumple la especificación del proyecto (Spec Kit). Flaggea drift entre spec.md/plan.md y el código real. Genera checklist de tareas pendientes.",
+    size: "sm",
+    color: "indigo",
   },
   {
     icon: MessageSquare,
@@ -50,6 +57,7 @@ const features = [
 
 const colorMap: Record<string, { bg: string; border: string; text: string; glow: string }> = {
   emerald: { bg: "bg-emerald-500/5", border: "border-emerald-500/15", text: "text-emerald-400", glow: "shadow-emerald-500/10" },
+  indigo: { bg: "bg-indigo-500/5", border: "border-indigo-500/15", text: "text-indigo-400", glow: "shadow-indigo-500/10" },
   blue: { bg: "bg-blue-500/5", border: "border-blue-500/15", text: "text-blue-400", glow: "shadow-blue-500/10" },
   purple: { bg: "bg-purple-500/5", border: "border-purple-500/15", text: "text-purple-400", glow: "shadow-purple-500/10" },
   amber: { bg: "bg-amber-500/5", border: "border-amber-500/15", text: "text-amber-400", glow: "shadow-amber-500/10" },
