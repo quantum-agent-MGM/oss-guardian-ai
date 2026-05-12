@@ -8,10 +8,10 @@ const translations = {
   en: {
     // Hero
     heroBadge: "AI-Powered OSS Maintenance · 2026",
-    heroHeadline1: "The AI that reviews your PRs",
-    heroHeadline2: "like a senior maintainer…",
-    heroHeadline3: "but 24/7 and without ego",
-    heroSub: "Save 10+ hours/week. Detect real security bugs, generate human comments maintainers actually reply to, verify your code follows the project spec (GitHub Spec Kit), and give you a weekly OSS Health Score. Low noise by design.",
+    heroHeadline1: "The AI Code Reviewer That Actually Understands Your Project",
+    heroHeadline2: "",
+    heroHeadline3: "",
+    heroSub: "Save 10+ hours/week. Real security detection, human-quality comments maintainers reply to, Spec Compliance Guard (GitHub Spec Kit), OSS Health Score, and auto-changelog. Low noise by design.",
     heroCTA: "Try free — 7 days",
     heroDemo: "Try Demo (no login)",
     heroBadge1: "7 days free",
