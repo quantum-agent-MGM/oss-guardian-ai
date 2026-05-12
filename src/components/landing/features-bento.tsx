@@ -14,8 +14,8 @@ const features = [
   {
     icon: ClipboardCheck,
     title: "Spec Compliance Guard",
-    desc: "Detecta automáticamente si el PR cumple la especificación del proyecto (Spec Kit). Flaggea drift entre spec.md/plan.md y el código real. Genera checklist de tareas pendientes.",
-    size: "sm",
+    desc: "Verifica automáticamente que cada PR cumpla la especificación oficial del proyecto (Spec Kit de GitHub). Detecta desviaciones, genera checklist de tareas pendientes y sugiere actualizaciones de spec.md/plan.md. Evita discusiones eternas y mantiene la visión clara del proyecto.",
+    size: "md",
     color: "indigo",
   },
   {

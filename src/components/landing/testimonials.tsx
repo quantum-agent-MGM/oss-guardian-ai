@@ -26,6 +26,13 @@ const testimonials = [
   },
   {
     quote:
+      "Finalmente mis PRs siguen la spec sin que tenga que recordárselo al equipo. Spec Compliance Guard me avisa cuando alguien se desvía del plan. Es como tener un arquitecto de software que nunca duerme.",
+    author: "Core Maintainer · 8.2k ⭐ repo",
+    role: "Spec-driven OSS",
+    stars: 5,
+  },
+  {
+    quote:
       "Lo uso en 3 proyectos con +500 PRs al mes. El security scanner me salvó de publicar una API key en un commit público. Vale cada centavo.",
     author: "Engineering Lead · Fintech",
     role: "Go + Rust microservices",

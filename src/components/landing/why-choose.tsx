@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { VolumeX, Target, DollarSign, GitPullRequest } from "lucide-react";
+import { VolumeX, Target, DollarSign, GitPullRequest, ClipboardCheck } from "lucide-react";
 
 const reasons = [
   {
@@ -13,6 +13,11 @@ const reasons = [
     icon: Target,
     title: "Hecho para OSS, no para enterprise",
     desc: "CodeRabbit y Greptile están construidos para equipos enterprise con procesos pesados. OSS Guardian AI es liviano, rápido y entiende el flujo de GitHub Issues + PRs + Releases como un maintainer más.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "El único reviewer que entiende tu spec",
+    desc: "No solo revisa código — revisa que el código cumpla la intención real del proyecto. Con Spec Compliance Guard integrado, cada PR se valida contra tu spec.md y plan.md automáticamente. Nadie más hace esto.",
   },
   {
     icon: DollarSign,

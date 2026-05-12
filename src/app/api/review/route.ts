@@ -14,6 +14,7 @@ interface ReviewResult {
   specCompliance?: {
     detected: boolean;
     score?: number;
+    impact?: "High" | "Medium" | "Low";
     driftFlags?: string[];
     checklist?: string[];
     specFiles?: string[];
@@ -80,6 +81,12 @@ export async function POST(request: NextRequest) {
 
     if (review.specCompliance?.detected) {
       (response.review as Record<string, unknown>).specCompliance = review.specCompliance;
+    }
+
+    // Add friendly message if no Spec Kit
+    if (!specContext.detected) {
+      (response.review as Record<string, unknown>).specKitSuggestion =
+        "Este repo no usa Spec Kit. Actívalo en github.com/github/spec-kit para reviews aún más precisas con validación de especificaciones.";
     }
 
     return NextResponse.json(response);
@@ -180,8 +187,10 @@ function buildSpecPrompt(specContext: SpecContext): string {
     prompt += `### ${file.path}\n\`\`\`\n${file.content.slice(0, 1500)}\n\`\`\`\n\n`;
   }
 
-  prompt += `\n## Spec Compliance Instructions
-As part of your review, ALSO check if the PR diff complies with the project specs above.
+  // Prioritize spec compliance in prompt when detected
+  prompt += `\n## Spec Compliance Instructions (HIGH PRIORITY)
+As part of your review, you MUST check if the PR diff complies with the project specs above.
+This is the most critical part of this review.
 Look for:
 1. **Drift**: Does the code implement what the spec specifies? Flag any gaps.
 2. **Missing implementation**: Spec mentions features/tasks not addressed in the PR.
@@ -314,11 +323,12 @@ async function openaiCompatibleReview(
         if (specJsonMatch) {
           const specData = JSON.parse(specJsonMatch[1]);
           result.specCompliance = {
-            detected: true,
-            score: specData.score,
-            driftFlags: specData.driftFlags || [],
-            checklist: specData.checklist || [],
-          };
+        detected: true,
+        score: specData.score,
+        impact: specData.score >= 90 ? "Low" : specData.score >= 60 ? "Medium" : "High",
+        driftFlags: specData.driftFlags || [],
+        checklist: specData.checklist || [],
+      };
         }
       } catch {
         result.specCompliance = { detected: true, score: 0 };
@@ -482,6 +492,7 @@ function templateReview(title: string, diff: string, specContext: SpecContext): 
     result.specCompliance = {
       detected: true,
       score: specDriftFlags.length === 0 ? 100 : Math.max(30, 100 - specDriftFlags.length * 25),
+      impact: specDriftFlags.length === 0 ? "Low" : specDriftFlags.length <= 2 ? "Medium" : "High",
       driftFlags: specDriftFlags,
       checklist: specChecklist.length > 0 ? specChecklist : ["Spec Kit detected — enable AI provider for deep spec analysis"],
     };
