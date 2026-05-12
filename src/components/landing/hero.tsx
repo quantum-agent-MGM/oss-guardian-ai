@@ -85,12 +85,12 @@ export function Hero() {
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className="mt-10 flex flex-col items-center gap-4">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/auth/signin" className="glass-btn glass-btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl animate-pulse-glow">
+            <button onClick={() => scrollTo("demo")} className="glass-btn glass-btn-primary inline-flex items-center gap-2.5 px-10 py-5 text-xl rounded-xl animate-pulse-glow shadow-[0_0_40px_-10px_rgba(16,185,129,0.4)] hover:shadow-[0_0_60px_-10px_rgba(16,185,129,0.6)] transition-shadow">
+              <Sparkles className="h-6 w-6" />{t.heroDemo}
+            </button>
+            <a href="/auth/signin" className="glass-btn inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl border border-white/[0.08] hover:border-white/[0.15]">
               <GithubIcon className="h-5 w-5" />{t.heroCTA}<ArrowRight className="h-5 w-5" />
             </a>
-            <button onClick={() => scrollTo("demo")} className="glass-btn glass-btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl">
-              <Sparkles className="h-5 w-5" />{t.heroDemo}
-            </button>
           </div>
           <div className="flex items-center gap-4 text-sm text-zinc-500">
             <span className="flex items-center gap-1.5"><Shield className="h-4 w-4 text-emerald-500" />{t.heroBadge1}</span>
