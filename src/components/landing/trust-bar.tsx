@@ -14,11 +14,6 @@ export function TrustBar() {
     <section className="border-y border-white/[0.04] bg-white/[0.01] backdrop-blur-sm py-6">
       <div className="mx-auto max-w-5xl px-6">
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-          <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-xs font-medium uppercase tracking-wider text-zinc-600"
           <span className="text-xs font-medium uppercase tracking-wider text-zinc-600">
             Integraciones nativas
           </span>
