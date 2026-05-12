@@ -7,7 +7,7 @@ import { Plus } from "lucide-react";
 const faqs = [
   {
     q: "¿Cómo funciona OSS Guardian AI?",
-    a: "Conectas tu repo de GitHub en 2 clics. Cuando abres un PR, nuestro agente AI analiza el diff automáticamente usando Claude y genera una review profesional con comentarios, detección de bugs de seguridad y sugerencias de mejora. Todo aparece como un comment normal en tu PR.",
+    a: "Conectas tu repo de GitHub en 2 clics. Cuando abres un PR, nuestro agente AI analiza el diff automáticamente usando IA avanzada y genera una review profesional con comentarios, detección de bugs de seguridad y sugerencias de mejora. Todo aparece como un comment normal en tu PR.",
   },
   {
     q: "¿Qué lenguajes soporta?",

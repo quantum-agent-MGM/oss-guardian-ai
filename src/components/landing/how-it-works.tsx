@@ -14,7 +14,7 @@ const steps = [
     number: "02",
     icon: Cpu,
     title: "AI analiza cada PR",
-    desc: "Cuando abres un PR, nuestro agente analiza el diff con Claude. Busca bugs de seguridad, anti-patrones y mejoras.",
+    desc: "Cuando abres un PR, nuestro agente analiza el diff con IA avanzada. Busca bugs de seguridad, anti-patrones y mejoras.",
   },
   {
     number: "03",

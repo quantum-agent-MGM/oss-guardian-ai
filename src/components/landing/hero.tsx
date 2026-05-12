@@ -133,38 +133,34 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="mt-10 flex flex-col items-center gap-4"
         >
-          <a
-            href="/auth/signin"
-            className="glass-btn glass-btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl animate-pulse-glow"
-          >
-            <GithubIcon className="h-5 w-5" />
-            Probar gratis — 7 días
-            <ArrowRight className="h-5 w-5" />
-          </a>
-          <button
-            onClick={() => scrollTo("demo")}
-            className="glass-btn inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl"
-          >
-            Ver demo interactivo
-          </button>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-10 flex items-center justify-center gap-6 text-sm text-zinc-500"
-        >
-          <span className="flex items-center gap-1.5">
-            <Shield className="h-4 w-4 text-emerald-500" />
-            7 días gratis
-          </span>
-          <span className="w-1 h-1 rounded-full bg-zinc-700" />
-          <span>Sin tarjeta de crédito</span>
-          <span className="w-1 h-1 rounded-full bg-zinc-700" />
-          <span>Cancel when you want</span>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="/auth/signin"
+              className="glass-btn glass-btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl animate-pulse-glow"
+            >
+              <GithubIcon className="h-5 w-5" />
+              Probar gratis — 7 días
+              <ArrowRight className="h-5 w-5" />
+            </a>
+            <button
+              onClick={() => scrollTo("demo")}
+              className="glass-btn inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl"
+            >
+              Ver demo interactivo
+            </button>
+          </div>
+          <div className="flex items-center gap-4 text-sm text-zinc-500">
+            <span className="flex items-center gap-1.5">
+              <Shield className="h-4 w-4 text-emerald-500" />
+              7 días gratis
+            </span>
+            <span className="w-1 h-1 rounded-full bg-zinc-700" />
+            <span>Sin tarjeta de crédito</span>
+            <span className="w-1 h-1 rounded-full bg-zinc-700" />
+            <span>Cancela cuando quieras</span>
+          </div>
         </motion.div>
       </div>
 

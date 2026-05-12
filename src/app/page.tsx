@@ -4,6 +4,7 @@ import { TrustBar } from "@/components/landing/trust-bar";
 import { FeaturesBento } from "@/components/landing/features-bento";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { DemoInteractive } from "@/components/landing/demo-interactive";
+import { WhyChoose } from "@/components/landing/why-choose";
 import { Testimonials } from "@/components/landing/testimonials";
 import { Pricing } from "@/components/landing/pricing";
 import { FAQ } from "@/components/landing/faq";
@@ -29,6 +30,7 @@ export default function HomePage() {
       <FeaturesBento />
       <HowItWorks />
       <DemoInteractive />
+      <WhyChoose />
       <Testimonials />
       <Pricing />
       <FAQ />

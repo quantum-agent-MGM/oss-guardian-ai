@@ -34,7 +34,7 @@ const plans = [
       "OSS Health Score dashboard",
       "Auto-fix suggestions",
       "Reglas de review custom",
-      "Prioridad Claude 3.5",
+      "Prioridad en procesamiento + Auto-Fix avanzado",
       "Soporte prioritario",
     ],
   },

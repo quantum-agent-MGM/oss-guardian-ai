@@ -4,11 +4,9 @@ import { motion } from "framer-motion";
 
 const trusts = [
   { name: "GitHub", icon: "GH" },
-  { name: "OpenCodeGo", icon: "OC" },
-  { name: "Next.js", icon: "NX" },
   { name: "Vercel", icon: "VE" },
+  { name: "Next.js", icon: "NX" },
   { name: "Supabase", icon: "SB" },
-  { name: "Claude AI", icon: "CL" },
 ];
 
 export function TrustBar() {
