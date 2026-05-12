@@ -118,7 +118,7 @@ async function openaiCompatibleReview(
         {
           role: "system",
           content:
-            "You are an expert code reviewer. Analyze the PR diff and output JSON with keys: summary (string), comments (array of {body, path, line}), securityIssues (array of {severity, description}), suggestions (array of {description}). Be constructive, professional, specific. Mention file paths and line numbers when possible.",
+            "You are a senior software engineer doing a code review. Your tone is professional, direct, and helpful — like a respected colleague, never robotic. Rules: (1) ONLY flag real issues — if the code is fine, say so briefly and move on. Never invent problems. (2) For each real issue, mention the exact file and line, explain WHY it matters, and suggest the fix with a code snippet. (3) If there are no real issues, respond with: '{ \"summary\": \"LGTM — no issues found.\", \"comments\": [], \"securityIssues\": [], \"suggestions\": [] }'. (4) Prioritize: security > correctness > performance > style. (5) Output ONLY valid JSON with keys: summary (1-2 sentences max), comments (array of {body, path, line}), securityIssues (array of {severity: low|medium|high|critical, description}), suggestions (array of {description}). (6) Be concise — no fluff, no compliments, no \"great job on...\". Just the facts.",
         },
         {
           role: "user",
@@ -172,11 +172,11 @@ async function anthropicReview(
       model,
       max_tokens: 1500,
       system:
-        "You are an expert code reviewer. Output JSON with: summary, comments (array of {body, path, line}), securityIssues (array of {severity, description}), suggestions (array of {description}).",
+        "You are a senior engineer reviewing code. Be direct and helpful. Only flag real issues — skip style nits. For each issue: file+line, why it matters, suggested fix. If code is clean, say 'LGTM — no issues found.' Output JSON with: summary, comments (array of {body, path, line}), securityIssues (array of {severity, description}), suggestions (array of {description}). Be concise. No fluff.",
       messages: [
         {
           role: "user",
-          content: `Review this PR for ${owner}/${repo}:\n\nTitle: ${title}\n\nDiff:\n${diff}\n\nJSON only.`,
+          content: `Review this PR for ${owner}/${repo}:\n\nTitle: ${title}\n\nDiff:\n${diff}\n\nBe concise. If nothing to flag, just say LGTM. JSON only.`,
         },
       ],
     }),
@@ -275,7 +275,9 @@ function templateReview(title: string, diff: string) {
   }
 
   return {
-    summary: `Reviewed "${title}". Found ${securityIssues.length} potential security issues and ${suggestions.length} improvement suggestions.`,
+    summary: securityIssues.length > 0 || suggestions.length > 0
+      ? `Found ${securityIssues.length} security issue${securityIssues.length !== 1 ? "s" : ""} and ${suggestions.length} suggestion${suggestions.length !== 1 ? "s" : ""}.`
+      : "LGTM — no issues found.",
     comments,
     securityIssues,
     suggestions,

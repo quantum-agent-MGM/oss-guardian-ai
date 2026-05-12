@@ -112,9 +112,11 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="mt-8 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.08]"
         >
-          Tu Agente AI que
+          El AI que revisa tus PRs
           <br />
-          <span className="glow-text">revisa PRs mientras duermes</span>
+          <span className="glow-text">como un senior maintainer…</span>
+          <br />
+          <span className="text-zinc-200">pero 24/7 y sin ego</span>
         </motion.h1>
 
         <motion.p
@@ -123,8 +125,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mt-6 text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed"
         >
-          OSS Guardian AI detecta bugs de seguridad, genera comentarios humanos profesionales, crea fixes automáticos y changelog.{" "}
-          <span className="text-zinc-300">Ahorra 10+ horas/semana en mantenimiento OSS.</span>
+          Detección automática de bugs de seguridad, comentarios humanos reales, changelog perfecto y OSS Health Score.{" "}
+          <span className="text-zinc-300">Ahorra 10+ horas/semana en code review.</span>
         </motion.p>
 
         <motion.div
@@ -134,13 +136,11 @@ export function Hero() {
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="https://whop.com/checkout/ch_BfnWOEryPKylvZx/"
-            target="_blank"
-            rel="noopener"
+            href="/auth/signin"
             className="glass-btn glass-btn-primary inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl animate-pulse-glow"
           >
             <GithubIcon className="h-5 w-5" />
-            Conectar mi repo GitHub
+            Probar gratis — 7 días
             <ArrowRight className="h-5 w-5" />
           </a>
           <button

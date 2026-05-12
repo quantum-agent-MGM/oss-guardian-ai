@@ -1,48 +1,48 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, MessageSquare, FileText, BarChart3, Zap, Code2 } from "lucide-react";
+import { ShieldCheck, MessageSquare, FileText, BarChart3, Filter, Code2 } from "lucide-react";
 
 const features = [
   {
     icon: ShieldCheck,
     title: "Security Auditor IA",
-    desc: "Detecta prompt injection, vulnerabilidades y secretos expuestos en <8 segundos. Bloquea merges con riesgo crítico.",
+    desc: "Detecta prompt injection, secretos expuestos, vulnerabilidades AI y CVEs en <8 segundos. Bloquea merges con riesgo crítico automáticamente.",
     size: "md",
     color: "emerald",
   },
   {
     icon: MessageSquare,
-    title: "Comentarios Humanos",
-    desc: "Nunca más \"AI slop\". Comentarios que maintainers realmente leen y responden. Tono profesional, sugerencias accionables.",
+    title: "Comentarios Ultra-Humanos",
+    desc: "Nunca más \"AI slop\". Tono profesional de senior dev, sugerencias accionables, referencias a líneas exactas. Tus contributors creen que eres tú.",
     size: "sm",
     color: "blue",
   },
   {
-    icon: FileText,
-    title: "Auto CHANGELOG",
-    desc: "Genera markdown perfecto para cada merge. Categoriza features, fixes, breaking changes. Listo para GitHub Releases.",
-    size: "sm",
-    color: "purple",
-  },
-  {
-    icon: BarChart3,
-    title: "OSS Health Score",
-    desc: "Dashboard semanal con score 0-100 + recomendaciones. PR velocity, bug density, dependency freshness. Compara con proyectos similares.",
-    size: "md",
-    color: "amber",
-  },
-  {
-    icon: Zap,
-    title: "Webhook Nativo",
-    desc: "Se activa solo cuando abres un PR. Zero config. Funciona con TypeScript, Python, Go y Rust desde el minuto uno.",
+    icon: Filter,
+    title: "Low-Noise by Design",
+    desc: "Solo flags issues reales. Zero spam. Si no hay nada que reportar, no comenta. 94% menos ruido que otros AI reviewers. Tus devs aman abrir PRs.",
     size: "sm",
     color: "cyan",
   },
   {
+    icon: BarChart3,
+    title: "OSS Health Score",
+    desc: "Score 0-100 semanal + tendencias. PR velocity, bug density, dependency freshness. Comparado contra el top 10% de GitHub. Obsesivamente accionable.",
+    size: "md",
+    color: "amber",
+  },
+  {
+    icon: FileText,
+    title: "Auto CHANGELOG",
+    desc: "Markdown perfecto en cada merge. Categoriza features, fixes, breaking changes. Listo para GitHub Releases. Tus usuarios lo notan.",
+    size: "sm",
+    color: "purple",
+  },
+  {
     icon: Code2,
     title: "Auto-Fix Suggestions",
-    desc: "No solo señala problemas — sugiere el fix exacto. Copy-paste listo con explicación. Tu equipo aprende mientras corrige.",
+    desc: "No solo señala — sugiere el fix exacto con diff aplicable. Copy-paste o commit directo. Tu equipo aprende de cada review.",
     size: "sm",
     color: "rose",
   },
