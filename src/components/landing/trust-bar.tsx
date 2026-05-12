@@ -23,7 +23,7 @@ export function TrustBar() {
             </motion.div>
           ))}
         </div>
-        <p className="text-center text-xs text-zinc-600 mt-3">{t.trustProof}</p>
+        <p className="text-center text-sm text-zinc-400 mt-4 font-medium tracking-wide">{t.trustProof}</p>
       </div>
     </section>
   );

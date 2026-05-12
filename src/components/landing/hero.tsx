@@ -73,10 +73,10 @@ export function Hero() {
           </span>
         </motion.div>
         <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-8 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-[1.08]">
-          {t.heroHeadline1}
-          {t.heroHeadline2 && <><br /><span className="glow-text">{t.heroHeadline2}</span></>}
-          {t.heroHeadline3 && <><br /><span className="text-zinc-200">{t.heroHeadline3}</span></>}
+          className="mt-8 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.08]">
+          {t.heroHeadline1}<br />
+          <span className="glow-text">{t.heroHeadline2}</span><br />
+          <span className="text-zinc-200">{t.heroHeadline3}</span>
         </motion.h1>
         <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mt-6 text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">

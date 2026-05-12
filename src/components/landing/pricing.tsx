@@ -27,8 +27,8 @@ export function Pricing() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
           <span className="text-xs font-medium uppercase tracking-widest text-emerald-500">{t.pricingLabel}</span>
           <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{t.pricingTitle} <span className="glow-text">{t.pricingTitleHighlight}</span></h2>
-          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.02] px-4 py-1.5 text-sm text-zinc-400">
-            <Sparkles className="h-3.5 w-3.5 text-emerald-400" />{t.pricingBadge}
+          <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-6 py-2 text-base text-emerald-300 font-medium">
+            <Sparkles className="h-4 w-4 text-emerald-400" />{t.pricingBadge}
           </div>
         </motion.div>
         <div className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
@@ -51,13 +51,18 @@ export function Pricing() {
             </motion.div>
           ))}
         </div>
-        <div className="mt-10 flex flex-col items-center gap-3">
+        <div className="mt-10 flex flex-col items-center gap-4">
           <div className="flex items-center gap-4 text-sm text-zinc-500">
             <span className="flex items-center gap-1.5 text-emerald-400"><Sparkles className="h-4 w-4" />{t.pricingTrust1}</span>
             <span className="w-1 h-1 rounded-full bg-zinc-700" /><span>{t.pricingTrust2}</span>
             <span className="w-1 h-1 rounded-full bg-zinc-700" /><span>{t.pricingTrust3}</span>
           </div>
-          <p className="text-sm text-zinc-500"><span className="text-emerald-400 font-medium">{t.pricingGuarantee.split(":")[0]}:</span> {t.pricingGuarantee.split(":").slice(1).join(":")}</p>
+          <div className="mt-2 rounded-2xl border border-emerald-500/15 bg-gradient-to-r from-emerald-500/[0.06] to-transparent px-8 py-5 text-center max-w-xl">
+            <p className="text-base text-emerald-300 font-semibold flex items-center justify-center gap-2">
+              <Sparkles className="h-5 w-5 text-emerald-400" />
+              {t.pricingGuarantee}
+            </p>
+          </div>
         </div>
       </div>
     </section>
