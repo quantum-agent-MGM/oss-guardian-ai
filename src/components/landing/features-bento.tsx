@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, MessageSquare, FileText, BarChart3, Filter, Code2, ClipboardCheck } from "lucide-react";
+import { ShieldCheck, MessageSquare, FileText, BarChart3, Filter, Code2, ClipboardCheck, Settings } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 
 export function FeaturesBento() {
@@ -10,6 +10,7 @@ export function FeaturesBento() {
   const features = [
     { icon: ShieldCheck, title: t.featSecurityTitle, desc: t.featSecurityDesc, size: "md", color: "emerald" },
     { icon: ClipboardCheck, title: t.featSpecTitle, desc: t.featSpecDesc, size: "md", color: "indigo" },
+    { icon: Settings, title: t.featCustomRulesTitle, desc: t.featCustomRulesDesc, size: "md", color: "teal" },
     { icon: MessageSquare, title: t.featHumanTitle, desc: t.featHumanDesc, size: "sm", color: "blue" },
     { icon: Filter, title: t.featLowNoiseTitle, desc: t.featLowNoiseDesc, size: "sm", color: "cyan" },
     { icon: BarChart3, title: t.featHealthTitle, desc: t.featHealthDesc, size: "md", color: "amber" },
@@ -20,6 +21,7 @@ export function FeaturesBento() {
   const colorMap: Record<string, { bg: string; border: string; text: string; glow: string }> = {
     emerald: { bg: "bg-emerald-500/5", border: "border-emerald-500/15", text: "text-emerald-400", glow: "shadow-emerald-500/10" },
     indigo: { bg: "bg-indigo-500/5", border: "border-indigo-500/15", text: "text-indigo-400", glow: "shadow-indigo-500/10" },
+    teal: { bg: "bg-teal-500/5", border: "border-teal-500/15", text: "text-teal-400", glow: "shadow-teal-500/10" },
     blue: { bg: "bg-blue-500/5", border: "border-blue-500/15", text: "text-blue-400", glow: "shadow-blue-500/10" },
     purple: { bg: "bg-purple-500/5", border: "border-purple-500/15", text: "text-purple-400", glow: "shadow-purple-500/10" },
     amber: { bg: "bg-amber-500/5", border: "border-amber-500/15", text: "text-amber-400", glow: "shadow-amber-500/10" },

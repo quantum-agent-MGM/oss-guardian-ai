@@ -1,7 +1,7 @@
 import { auth, signOut } from "@/lib/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { LogOut, Activity, Shield, Star, GitPullRequest, ClipboardCheck, AlertTriangle, CheckCircle } from "lucide-react";
+import { LogOut, Activity, Shield, Star, GitPullRequest, ClipboardCheck, AlertTriangle, CheckCircle, Wrench, Gift, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GithubIcon } from "@/components/ui/github-icon";
 
@@ -47,8 +47,25 @@ export default async function DashboardPage() {
           </form>
         </div>
 
+        {/* Referral Program Banner */}
+        <div className="mt-8 rounded-2xl border border-violet-500/15 bg-gradient-to-r from-violet-500/[0.06] to-transparent px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
+              <Gift className="h-5 w-5 text-violet-400" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-violet-300">Refer a friend → both get 1 month free</p>
+              <p className="text-xs text-zinc-500">Share your referral link. When they subscribe, you both get Pro free for 30 days.</p>
+            </div>
+          </div>
+          <Button className="glass-btn border-violet-500/20 text-violet-400 hover:bg-violet-500/10 rounded-xl text-sm font-medium gap-2 px-5">
+            <Gift className="h-4 w-4" />
+            Copy Referral Link
+          </Button>
+        </div>
+
         {/* Stats */}
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[
             { icon: GitPullRequest, label: "PRs Reviewed", value: "0", color: "text-blue-400" },
             { icon: Shield, label: "Issues Found", value: "0", color: "text-amber-400" },
@@ -62,6 +79,58 @@ export default async function DashboardPage() {
               <p className="text-xs text-zinc-500 mt-1">{stat.label}</p>
             </div>
           ))}
+        </div>
+
+        {/* Auto-Fix Suggestions */}
+        <div className="mt-10">
+          <div className="flex items-center gap-3 mb-4">
+            <Wrench className="h-5 w-5 text-rose-400" />
+            <h2 className="text-lg font-semibold">Auto-Fix Suggestions</h2>
+            <span className="text-xs px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400">
+              Pro
+            </span>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="glass-card p-6 flex flex-col items-center justify-center text-center">
+              <Zap className="h-8 w-8 text-rose-400 mb-4" />
+              <p className="text-sm text-zinc-400">One-Click Apply Fix</p>
+              <p className="text-xs text-zinc-500 mt-2">Review a PR to see auto-generated patches ready for commit.</p>
+              <Button disabled className="mt-4 w-full glass-btn border-rose-500/20 text-rose-400 hover:bg-rose-500/10 rounded-xl text-sm font-medium gap-2">
+                <Zap className="h-4 w-4" />
+                Apply Fix
+              </Button>
+            </div>
+            <div className="glass-card p-6 flex flex-col">
+              <p className="text-xs text-zinc-500 mb-3 uppercase tracking-wider">Patch Preview</p>
+              <div className="flex-1 rounded-lg bg-black/30 border border-white/[0.04] p-3 font-mono text-xs text-zinc-400 overflow-auto">
+                <p className="text-zinc-600">// Patches appear here after your first review</p>
+                <p className="text-emerald-400 mt-1">+ import DOMPurify from &apos;dompurify&apos;;</p>
+                <p className="text-rose-400">- element.innerHTML = userInput;</p>
+                <p className="text-emerald-400">+ element.textContent = DOMPurify.sanitize(userInput);</p>
+              </div>
+              <Button disabled className="mt-4 w-full glass-btn border-zinc-700 text-zinc-400 rounded-xl text-sm font-medium gap-2">
+                Copy Patch
+              </Button>
+            </div>
+            <div className="glass-card p-6">
+              <p className="text-xs text-zinc-500 mb-3 uppercase tracking-wider">Auto-Fix Stats</p>
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-zinc-400">Fixes applied</span>
+                  <span className="text-zinc-300 font-semibold">0</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-zinc-400">Time saved</span>
+                  <span className="text-zinc-300 font-semibold">0 min</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-zinc-400">Avg patch size</span>
+                  <span className="text-zinc-300 font-semibold">—</span>
+                </div>
+              </div>
+              <p className="text-xs text-zinc-600 mt-4">Upgrade to Pro to unlock unlimited One-Click Apply Fix.</p>
+            </div>
+          </div>
         </div>
 
         {/* Spec Compliance Section */}
@@ -139,6 +208,10 @@ export default async function DashboardPage() {
                 <div className="flex items-center gap-2 text-sm text-zinc-500">
                   <span className="w-4 h-4 rounded border border-zinc-700 flex-shrink-0" />
                   <span>Open a PR to trigger first review</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-zinc-500">
+                  <span className="w-4 h-4 rounded border border-zinc-700 flex-shrink-0" />
+                  <span>Add `.guardian.yaml` for custom rules</span>
                 </div>
               </div>
             </div>

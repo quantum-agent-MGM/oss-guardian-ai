@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 /**
- * AI PR Review endpoint — multi-provider with Spec Compliance Guard
- * Detects Spec Kit (.specify/, spec.md, plan.md) and validates PR diffs against specs.
+ * AI PR Review endpoint — multi-provider with Spec Compliance Guard + Custom Rules (.guardian.yaml)
+ * Detects Spec Kit (.specify/, spec.md, plan.md) and .guardian.yaml, validates PR diffs against specs and custom rules.
  * Falls back to pattern-based template review if no API key configured.
  */
 
@@ -56,16 +56,20 @@ export async function POST(request: NextRequest) {
     // 2. Detect Spec Kit files
     const specContext = await detectSpecKit(owner, repo);
 
-    // 3. Truncate diff if too large (~8K chars for AI context)
+    // 3. Detect Custom Rules (.guardian.yaml)
+    const guardianContext = await detectGuardianYaml(owner, repo);
+
+    // 4. Truncate diff if too large (~8K chars for AI context)
     const truncatedDiff =
       diff.length > 8000 ? diff.slice(0, 8000) + "\n... (truncated)" : diff;
 
-    // 4. Generate review
-    const review = await generateReview(title, truncatedDiff, owner, repo, specContext);
+    // 5. Generate review
+    const review = await generateReview(title, truncatedDiff, owner, repo, specContext, guardianContext);
 
     console.log(
       `[review] Generated review for ${owner}/${repo}#${prNumber}: ${review.summary.slice(0, 80)}` +
-      (review.specCompliance?.detected ? ` [spec: ${review.specCompliance.score}%]` : "")
+      (review.specCompliance?.detected ? ` [spec: ${review.specCompliance.score}%]` : "") +
+      (guardianContext.detected ? ` [custom rules: ${guardianContext.rules.length}]` : "")
     );
 
     const response: Record<string, unknown> = {
@@ -87,6 +91,12 @@ export async function POST(request: NextRequest) {
     if (!specContext.detected) {
       (response.review as Record<string, unknown>).specKitSuggestion =
         "Este repo no usa Spec Kit. Actívalo en github.com/github/spec-kit para reviews aún más precisas con validación de especificaciones.";
+    }
+
+    // Add friendly message if no .guardian.yaml
+    if (!guardianContext.detected) {
+      (response.review as Record<string, unknown>).guardianYamlSuggestion =
+        "Este repo no tiene `.guardian.yaml`. Crea uno en la raíz para definir tus propias reglas de código, security y estilo — el AI las seguirá automáticamente.";
     }
 
     return NextResponse.json(response);
@@ -145,6 +155,50 @@ async function detectSpecKit(owner: string, repo: string): Promise<SpecContext> 
   };
 }
 
+// ── Custom Rules Detection (.guardian.yaml) ──
+
+interface GuardianContext {
+  detected: boolean;
+  rules: { path: string; content: string }[];
+}
+
+async function detectGuardianYaml(owner: string, repo: string): Promise<GuardianContext> {
+  const rules: { path: string; content: string }[] = [];
+  const pathsToCheck = [
+    ".guardian.yaml",
+    ".guardian.yml",
+    ".github/guardian.yaml",
+    ".github/guardian.yml",
+  ];
+
+  for (const path of pathsToCheck) {
+    try {
+      const url = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`;
+      const res = await fetch(url, {
+        headers: { Accept: "text/plain" },
+        signal: AbortSignal.timeout(5000),
+      });
+
+      if (res.ok) {
+        const content = await res.text();
+        if (content.length > 10) {
+          rules.push({
+            path,
+            content: content.slice(0, 3000),
+          });
+        }
+      }
+    } catch {
+      // Rule file not found — continue
+    }
+  }
+
+  return {
+    detected: rules.length > 0,
+    rules,
+  };
+}
+
 // ── Review Generation ──
 
 async function generateReview(
@@ -152,7 +206,8 @@ async function generateReview(
   diff: string,
   owner: string,
   repo: string,
-  specContext: SpecContext
+  specContext: SpecContext,
+  guardianContext: GuardianContext
 ): Promise<ReviewResult> {
   const aiProvider = process.env.AI_PROVIDER || "template";
   const apiKey = process.env.AI_API_KEY;
@@ -163,16 +218,16 @@ async function generateReview(
   if (apiKey && aiProvider !== "template") {
     try {
       if (aiProvider === "anthropic") {
-        return await anthropicReview(title, diff, owner, repo, apiKey, aiModel, specContext);
+        return await anthropicReview(title, diff, owner, repo, apiKey, aiModel, specContext, guardianContext);
       }
-      return await openaiCompatibleReview(title, diff, owner, repo, apiKey, apiBase, aiModel, specContext);
+      return await openaiCompatibleReview(title, diff, owner, repo, apiKey, apiBase, aiModel, specContext, guardianContext);
     } catch (error) {
       console.error(`[review] AI provider failed, falling back to template:`, error);
     }
   }
 
   // Fallback: pattern-based template review
-  return templateReview(title, diff, specContext);
+  return templateReview(title, diff, specContext, guardianContext);
 }
 
 // ── Build Spec Context for Prompt ──
@@ -201,6 +256,36 @@ After your main review, add a SEPARATE section starting with "### Spec Complianc
 - List specific drift flags (what's missing or divergent).
 - Suggest spec updates if the code intentionally differs from spec.
 - Generate a checklist of remaining tasks based on spec gaps.
+Format this section exactly as shown, with the percentage on its own line after the heading.`;
+
+  return prompt;
+}
+
+// ── Build Custom Rules Context for Prompt ──
+
+function buildGuardianPrompt(guardianContext: GuardianContext): string {
+  if (!guardianContext.detected) return "";
+
+  let prompt = "\n\n## Custom Rules Context\nThis project defines custom review policies. ";
+  prompt += "The following `.guardian.yaml` rules were detected in the repository:\n\n";
+
+  for (const rule of guardianContext.rules) {
+    prompt += `### ${rule.path}\n\`\`\`yaml\n${rule.content.slice(0, 1500)}\n\`\`\`\n\n`;
+  }
+
+  prompt += `\n## Custom Rules Instructions (HIGH PRIORITY)
+As part of your review, you MUST enforce the custom rules defined above.
+This is the most critical part of this review.
+Look for:
+1. **Style violations**: Does the code follow the style rules defined in .guardian.yaml?
+2. **Security policy breaches**: Does the code violate any security rules?
+3. **Forbidden patterns**: Are any forbidden patterns or anti-patterns present?
+4. **Required practices**: Are required practices (e.g., specific imports, naming conventions) followed?
+
+After your main review, add a SEPARATE section starting with "### Custom Rules Compliance: XX%":
+- Score 0-100% based on how well the PR follows the custom rules.
+- List specific rule violations with file and line references.
+- Suggest fixes that align with the custom rules.
 Format this section exactly as shown, with the percentage on its own line after the heading.`;
 
   return prompt;
@@ -251,9 +336,11 @@ async function openaiCompatibleReview(
   apiKey: string,
   apiBase: string,
   model: string,
-  specContext: SpecContext
+  specContext: SpecContext,
+  guardianContext: GuardianContext
 ): Promise<ReviewResult> {
   const specPrompt = buildSpecPrompt(specContext);
+  const guardianPrompt = buildGuardianPrompt(guardianContext);
 
   const response = await fetch(`${apiBase}/chat/completions`, {
     method: "POST",
@@ -263,18 +350,19 @@ async function openaiCompatibleReview(
     },
     body: JSON.stringify({
       model,
-      max_tokens: specContext.detected ? 2500 : 1500,
+      max_tokens: specContext.detected || guardianContext.detected ? 3000 : 1500,
       temperature: 0.3,
       messages: [
         {
           role: "system",
           content:
-            "You are a senior software engineer doing a code review. Your tone is professional, direct, and helpful — like a respected colleague, never robotic. Rules: (1) ONLY flag real issues — if the code is fine, say so briefly and move on. Never invent problems. (2) For each real issue, mention the exact file and line, explain WHY it matters, and suggest the fix with a code snippet. (3) If there are no real issues, respond with: '{ \"summary\": \"LGTM — no issues found.\", \"comments\": [], \"securityIssues\": [], \"suggestions\": [] }'. (4) Prioritize: security > correctness > spec-compliance > performance > style. (5) Output ONLY valid JSON with keys: summary (1-2 sentences max), comments (array of {body, path, line}), securityIssues (array of {severity: low|medium|high|critical, description}), suggestions (array of {description}). (6) Be concise — no fluff, no compliments, no \"great job on...\". Just the facts." +
-            (specContext.detected ? " (7) After the main JSON review, add a SECOND JSON block for spec compliance: { \"specCompliance\": { \"score\": number 0-100, \"driftFlags\": string[], \"checklist\": string[] } }." : ""),
+            "You are a senior software engineer doing a code review. Your tone is professional, direct, and helpful — like a respected colleague, never robotic. Rules: (1) ONLY flag real issues — if the code is fine, say so briefly and move on. Never invent problems. (2) For each real issue, mention the exact file and line, explain WHY it matters, and suggest the fix with a code snippet. (3) If there are no real issues, respond with: '{ \"summary\": \"LGTM — no issues found.\", \"comments\": [], \"securityIssues\": [], \"suggestions\": [] }'. (4) Prioritize: security > correctness > spec-compliance > custom-rules > performance > style. (5) Output ONLY valid JSON with keys: summary (1-2 sentences max), comments (array of {body, path, line}), securityIssues (array of {severity: low|medium|high|critical, description}), suggestions (array of {description}). (6) Be concise — no fluff, no compliments, no \"great job on...\". Just the facts." +
+            (specContext.detected ? " (7) After the main JSON review, add a SECOND JSON block for spec compliance: { \"specCompliance\": { \"score\": number 0-100, \"driftFlags\": string[], \"checklist\": string[] } }." : "") +
+            (guardianContext.detected ? " (8) After the main JSON review, add a THIRD section for custom rules compliance starting with '### Custom Rules Compliance: XX%'." : ""),
         },
         {
           role: "user",
-          content: `Review this PR for ${owner}/${repo}:\n\nTitle: ${title}\n\nDiff:\n${diff}${specPrompt}\n\nRespond with valid JSON only.${specContext.detected ? ' If spec context was provided, include a second JSON block with specCompliance.' : ''}`,
+          content: `Review this PR for ${owner}/${repo}:\n\nTitle: ${title}\n\nDiff:\n${diff}${specPrompt}${guardianPrompt}\n\nRespond with valid JSON only.${specContext.detected ? ' If spec context was provided, include a second JSON block with specCompliance.' : ''}${guardianContext.detected ? ' If custom rules were provided, include a third section with Custom Rules Compliance.' : ''}`,
         },
       ],
     }),
@@ -348,9 +436,11 @@ async function anthropicReview(
   repo: string,
   apiKey: string,
   model: string,
-  specContext: SpecContext
+  specContext: SpecContext,
+  guardianContext: GuardianContext
 ): Promise<ReviewResult> {
   const specPrompt = buildSpecPrompt(specContext);
+  const guardianPrompt = buildGuardianPrompt(guardianContext);
   
   const response = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
@@ -361,14 +451,15 @@ async function anthropicReview(
     },
     body: JSON.stringify({
       model,
-      max_tokens: specContext.detected ? 2500 : 1500,
+      max_tokens: specContext.detected || guardianContext.detected ? 3000 : 1500,
       system:
         "You are a senior engineer reviewing code. Be direct and helpful. Only flag real issues — skip style nits. For each issue: file+line, why it matters, suggested fix. If code is clean, say 'LGTM — no issues found.' Output JSON with: summary, comments (array of {body, path, line}), securityIssues (array of {severity, description}), suggestions (array of {description}). Be concise. No fluff." +
-        (specContext.detected ? " ALSO check spec compliance: after the main JSON, add a ### Spec Compliance Score section with score 0-100, drift flags, and task checklist." : ""),
+        (specContext.detected ? " ALSO check spec compliance: after the main JSON, add a ### Spec Compliance Score section with score 0-100, drift flags, and task checklist." : "") +
+        (guardianContext.detected ? " ALSO check custom rules compliance: after the spec section, add a ### Custom Rules Compliance section with score 0-100 and rule violations." : ""),
       messages: [
         {
           role: "user",
-          content: `Review this PR for ${owner}/${repo}:\n\nTitle: ${title}\n\nDiff:\n${diff}${specPrompt}\n\nBe concise. If nothing to flag, just say LGTM. JSON only.${specContext.detected ? ' Add spec compliance section after JSON.' : ''}`,
+          content: `Review this PR for ${owner}/${repo}:\n\nTitle: ${title}\n\nDiff:\n${diff}${specPrompt}${guardianPrompt}\n\nBe concise. If nothing to flag, just say LGTM. JSON only.${specContext.detected ? ' Add spec compliance section after JSON.' : ''}${guardianContext.detected ? ' Add custom rules compliance section after spec.' : ''}`,
         },
       ],
     }),
@@ -412,7 +503,7 @@ async function anthropicReview(
 
 // ── Template Review (Fallback) ──
 
-function templateReview(title: string, diff: string, specContext: SpecContext): ReviewResult {
+function templateReview(title: string, diff: string, specContext: SpecContext, guardianContext: GuardianContext): ReviewResult {
   const comments: { body: string; path: string; line: number }[] = [];
   const securityIssues: { severity: string; description: string }[] = [];
   const suggestions: { description: string }[] = [];
@@ -463,6 +554,24 @@ function templateReview(title: string, diff: string, specContext: SpecContext): 
     suggestions.push({
       description: "TODO/FIXME/HACK comments found — address before merge or create follow-up issues",
     });
+  }
+
+  // Basic .guardian.yaml rule checks (template mode)
+  if (guardianContext.detected) {
+    const guardianLower = guardianContext.rules.map(r => r.content.toLowerCase()).join("\n");
+    
+    // Check forbidden patterns from guardian rules
+    if (guardianLower.includes("forbid") && guardianLower.includes("console.log") && diffLower.includes("console.log")) {
+      suggestions.push({
+        description: "Custom rule violation: console.log is forbidden by `.guardian.yaml`. Remove or replace with a proper logger.",
+      });
+    }
+    
+    if (guardianLower.includes("require") && guardianLower.includes("typescript") && !diffLower.includes(": ")) {
+      suggestions.push({
+        description: "Custom rule hint: `.guardian.yaml` enforces TypeScript strictness. Verify types are explicit.",
+      });
+    }
   }
 
   const result: ReviewResult = {

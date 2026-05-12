@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Sparkles } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Gift } from "lucide-react";
 import { GithubIcon } from "@/components/ui/github-icon";
 import { useLanguage } from "@/lib/i18n";
 
@@ -31,6 +31,16 @@ export function Pricing() {
             <Sparkles className="h-4 w-4 text-emerald-400" />{t.pricingBadge}
           </div>
         </motion.div>
+
+        {/* Free Tier Banner */}
+        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="mb-8 rounded-2xl border border-emerald-500/15 bg-gradient-to-r from-emerald-500/[0.06] to-transparent px-6 py-4 text-center max-w-2xl mx-auto">
+          <p className="text-sm text-emerald-300 font-semibold flex items-center justify-center gap-2">
+            <Sparkles className="h-4 w-4 text-emerald-400" />
+            {t.pricingFreeTier}
+          </p>
+        </motion.div>
+
         <div className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
           {plans.map((plan, i) => (
             <motion.div key={plan.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
@@ -51,6 +61,16 @@ export function Pricing() {
             </motion.div>
           ))}
         </div>
+
+        {/* Referral Banner */}
+        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="mt-8 rounded-2xl border border-violet-500/15 bg-gradient-to-r from-violet-500/[0.06] to-transparent px-6 py-4 text-center max-w-2xl mx-auto">
+          <p className="text-sm text-violet-300 font-semibold flex items-center justify-center gap-2">
+            <Gift className="h-4 w-4 text-violet-400" />
+            {t.pricingReferral}
+          </p>
+        </motion.div>
+
         <div className="mt-10 flex flex-col items-center gap-4">
           <div className="flex items-center gap-4 text-sm text-zinc-500">
             <span className="flex items-center gap-1.5 text-emerald-400"><Sparkles className="h-4 w-4" />{t.pricingTrust1}</span>
