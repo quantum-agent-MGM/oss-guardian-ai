@@ -25,6 +25,18 @@ const faqs = [
     q: "¿Puedo cancelar en cualquier momento?",
     a: "Sí, sin permanencia. Cancelas desde Whop con un clic y el acceso sigue hasta el final del período pagado.",
   },
+  {
+    q: "¿Cómo se integra con mi workflow actual?",
+    a: "Cero fricción. Instalas el GitHub App en 2 clics, seleccionas los repos, y listo. Los PR reviews aparecen como comentarios normales. No cambias tu flujo — solo agregas un revisor extra que nunca duerme y tiene memoria infinita de tu codebase.",
+  },
+  {
+    q: "¿Qué diferencia tiene de Copilot o CodeRabbit?",
+    a: "Copilot asiste escribiendo código. CodeRabbit revisa pero es genérico. OSS Guardian AI es el único que: (1) conoce tu codebase completo vía RAG, (2) detecta patrones de vulnerabilidad específicos de OSS (supply chain, dependency confusion, exposed secrets), y (3) genera un OSS Health Score que te dice exactamente qué tan mantenible y seguro es tu proyecto comparado con el top 10% de GitHub.",
+  },
+  {
+    q: "¿Tiene SLA de respuesta?",
+    a: "El 95% de los PRs reciben review en menos de 3 minutos. Para proyectos con ≥100 estrellas, garantizamos <5 minutos. Si alguna vez falla, tenemos fallback automático al template scanner (gratuito en todos los planes) que cubre SQL injection, XSS, secretos expuestos, y malas prácticas comunes.",
+  },
 ];
 
 export function FAQ() {

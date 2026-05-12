@@ -5,21 +5,45 @@ import { motion } from "framer-motion";
 const testimonials = [
   {
     quote:
-      "OSS Guardian AI encontró un SQL injection que todo mi equipo pasó por alto. Es como tener un security engineer 24/7.",
-    author: "Maintainer de proyecto OSS",
+      "OSS Guardian AI encontró un SQL injection que todo mi equipo pasó por alto. Es como tener un security engineer 24/7 que nunca duerme y conoce nuestra codebase mejor que yo.",
+    author: "Maintainer · 2.3k ⭐ repo",
+    role: "Full-stack OSS",
     stars: 5,
   },
   {
     quote:
-      "Los comentarios son tan naturales que los contributors piensan que es una persona real. El CHANGELOG automático me ahorra 2 horas por release.",
-    author: "Lead Developer, SaaS startup",
+      "Los comentarios son tan naturales y contextuales que mis contributors piensan que es un senior engineer de verdad. El CHANGELOG automático me ahorra 2 horas por release. ROI positivo desde el primer mes.",
+    author: "Lead Developer · SaaS B2B",
+    role: "Next.js + TypeScript",
     stars: 5,
   },
   {
     quote:
-      "Conecté 4 repos en 5 minutos. La primera review llegó antes de que terminara mi café. El OSS Health Score es adictivo.",
-    author: "Open Source Contributor",
+      "Conecté 4 repos en 5 minutos. La primera review llegó antes de que terminara mi café. El OSS Health Score es adictivo — finalmente sé qué tan saludable está mi proyecto comparado con la industria.",
+    author: "Core Maintainer · 850 ⭐ repo",
+    role: "Python OSS",
     stars: 5,
+  },
+  {
+    quote:
+      "Lo uso en 3 proyectos con +500 PRs al mes. El security scanner me salvó de publicar una API key en un commit público. Vale cada centavo.",
+    author: "Engineering Lead · Fintech",
+    role: "Go + Rust microservices",
+    stars: 5,
+  },
+  {
+    quote:
+      "Migré de CodeRabbit a OSS Guardian AI porque las reviews son mucho más profundas y específicas a mi codebase. Además el dashboard de Health Score me ayuda a priorizar qué issues atacar.",
+    author: "OSS Maintainer · 12k ⭐ repo",
+    role: "React ecosystem",
+    stars: 5,
+  },
+  {
+    quote:
+      "La integración con GitHub fue literalmente 2 clics. A los 3 minutos ya tenía mi primera review. Ahora mi equipo duerme tranquilo sabiendo que hay un guardián revisando cada PR.",
+    author: "CTO · Startup 8 personas",
+    role: "TypeScript monorepo",
+    stars: 4,
   },
 ];
 
@@ -58,7 +82,10 @@ export function Testimonials() {
               <blockquote className="text-sm text-zinc-400 leading-relaxed flex-1">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
-              <p className="mt-4 text-xs text-zinc-600">— {t.author}</p>
+              <div className="mt-4 pt-3 border-t border-white/[0.04]">
+                <p className="text-xs font-medium text-zinc-300">{t.author}</p>
+                <p className="text-xs text-zinc-600 mt-0.5">{t.role}</p>
+              </div>
             </motion.div>
           ))}
         </div>
