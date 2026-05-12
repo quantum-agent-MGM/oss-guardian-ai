@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/landing/hero";
 import { TrustBar } from "@/components/landing/trust-bar";
 import { FeaturesBento } from "@/components/landing/features-bento";
+import { Metrics } from "@/components/landing/metrics";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { DemoInteractive } from "@/components/landing/demo-interactive";
 import { WhyChoose } from "@/components/landing/why-choose";
@@ -28,6 +29,7 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <FeaturesBento />
+      <Metrics />
       <HowItWorks />
       <DemoInteractive />
       <WhyChoose />
