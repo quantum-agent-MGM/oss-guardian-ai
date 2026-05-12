@@ -3,6 +3,16 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 
+function getInitials(name: string) {
+  return name
+    .split(" ")
+    .map((w) => w[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
+
 export function Testimonials() {
   const { t } = useLanguage();
 
@@ -31,9 +41,14 @@ export function Testimonials() {
               className="glass-card p-6 flex flex-col">
               <div className="flex gap-1 mb-4">{Array.from({ length: tm.stars }).map((_, j) => (<span key={j} className="text-amber-400 text-sm">★</span>))}</div>
               <blockquote className="text-sm text-zinc-400 leading-relaxed flex-1">&ldquo;{tm.quote}&rdquo;</blockquote>
-              <div className="mt-4 pt-3 border-t border-white/[0.04]">
-                <p className="text-xs font-medium text-zinc-300">{tm.author}</p>
-                <p className="text-xs text-zinc-600 mt-0.5">{tm.role}</p>
+              <div className="mt-4 pt-3 border-t border-white/[0.04] flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-xs font-bold text-emerald-400">
+                  {getInitials(tm.author)}
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-zinc-300">{tm.author}</p>
+                  <p className="text-xs text-zinc-600 mt-0.5">{tm.role}</p>
+                </div>
               </div>
             </motion.div>
           ))}
