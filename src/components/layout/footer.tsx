@@ -16,23 +16,23 @@ export function Footer() {
           </div>
           <div><h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-3">{t.footerProduct}</h4>
             <ul className="space-y-2 text-sm text-zinc-500">
-              <li><Link href="#features" className="hover:text-zinc-300 transition-colors">Features</Link></li>
-              <li><Link href="#demo" className="hover:text-zinc-300 transition-colors">Demo</Link></li>
-              <li><Link href="#pricing" className="hover:text-zinc-300 transition-colors">Pricing</Link></li>
+              <li><Link href="/#features" className="hover:text-zinc-300 transition-colors">Features</Link></li>
+              <li><Link href="/#demo" className="hover:text-zinc-300 transition-colors">Demo</Link></li>
+              <li><Link href="/#pricing" className="hover:text-zinc-300 transition-colors">Pricing</Link></li>
               <li><Link href="/dashboard" className="hover:text-zinc-300 transition-colors">Dashboard</Link></li>
             </ul>
           </div>
           <div><h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-3">{t.footerCompany}</h4>
             <ul className="space-y-2 text-sm text-zinc-500">
               <li><a href="https://github.com/quantum-agent-MGM/oss-guardian-ai" target="_blank" rel="noopener" className="hover:text-zinc-300 transition-colors inline-flex items-center gap-1.5"><GithubIcon className="h-3.5 w-3.5" /> GitHub</a></li>
-              <li><a href="mailto:hello@oss-guardian.ai" className="hover:text-zinc-300 transition-colors">{t.footerContact}</a></li>
-              <li><Link href="/privacy" className="hover:text-zinc-300 transition-colors">{t.footerPrivacy}</Link></li>
+              <li><a href="mailto:admin@vortexaisolutions.online" className="hover:text-zinc-300 transition-colors">{t.footerContact}</a></li>
+              <li><Link href="/contact" className="hover:text-zinc-300 transition-colors">Contact</Link></li>
             </ul>
           </div>
           <div><h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-3">{t.footerLegal}</h4>
             <ul className="space-y-2 text-sm text-zinc-500">
-              <li><Link href="/terms" className="hover:text-zinc-300 transition-colors">{t.footerTerms}</Link></li>
-              <li><Link href="/privacy" className="hover:text-zinc-300 transition-colors">{t.footerPrivacy}</Link></li>
+              <li><Link href="/legal/privacy-policy" className="hover:text-zinc-300 transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/legal/terms-of-service" className="hover:text-zinc-300 transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
         </div>
